@@ -28,6 +28,15 @@ void decrypt_block(uint8_t *block) {
     }
 }
 
+uint32_t sdbm_hash(const char *data, size_t length) {
+    uint32_t hash = 0;
+    for (size_t i = 0; i < length; i++) {
+        hash = data[i] + (hash << 6) + (hash << 16) - hash;
+    }
+    return hash;
+}
+
+
 int main() {
     FILE *file = fopen("data.bin", "rb");
     if (!file) {
